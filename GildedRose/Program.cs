@@ -3,17 +3,16 @@ using System.Collections.Generic;
 
 namespace GildedRose
 {
-    class Program
+    public class Program
     {
-        IList<Item> Items;
+        public IList<Item> Items;
         static void Main(string[] args)
         {
             System.Console.WriteLine("OMGHAI!");
-
             var app = new Program()
-                          {
-                              Items = new List<Item>
-                                          {
+            {
+                Items = new List<Item>
+                                            {
                 new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 },
                 new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 },
                 new Item { Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7 },
@@ -37,11 +36,11 @@ namespace GildedRose
                     SellIn = 5,
                     Quality = 49
                 },
-				// this conjured item does not work properly yet
-				new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
-                                          }
+                // this conjured item does not work properly yet
+                new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
+                                            }
 
-                          };
+            };
 
             for (var i = 0; i < 31; i++)
             {
@@ -54,7 +53,6 @@ namespace GildedRose
                 Console.WriteLine("");
                 app.UpdateQuality();
             }
-
         }
 
         public void UpdateQuality()
@@ -67,6 +65,10 @@ namespace GildedRose
                     {
                         if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                         {
+                            if (Items[i].Name.Contains("Conjured"))
+                            {
+                                Items[i].Quality = Items[i].Quality - 1;
+                            }
                             Items[i].Quality = Items[i].Quality - 1;
                         }
                     }
@@ -134,14 +136,4 @@ namespace GildedRose
         }
 
     }
-
-    public class Item
-    {
-        public string Name { get; set; }
-
-        public int SellIn { get; set; }
-
-        public int Quality { get; set; }
-    }
-
 }
