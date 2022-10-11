@@ -7,5 +7,9 @@ namespace GildedRose
         public int SellIn { get; set; }
 
         public int Quality { get; set; }
+        public virtual void UpdateQuality() {
+            Quality--;
+            if (SellIn < 0) Quality--;
+        }
     }
 }
