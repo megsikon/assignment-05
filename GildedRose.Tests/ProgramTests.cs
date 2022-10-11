@@ -3,23 +3,14 @@ namespace GildedRose.Tests;
 public class ProgramTests
 {
     [Fact]
-    public void Conjured_item_degrades_twice_as_fast_as_normal_item()
-    {
-        //arrange
-        var app = new Program()
-        {
-            Items = new List<Item>() { new ConjuredItem { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 } }
-        };
+    public void Main_Test() {
+      var app = new Program()
+      {
 
-        var exp = 4;
+      };
 
-        //act
-        app.Update();
-
-        //assert
-        app.Items[0].Quality.Should().Be(exp);
+      
     }
-
 
     [Fact]
     public void Sulfuras_does_not_degrade_in_quality()
@@ -189,5 +180,81 @@ public class ProgramTests
         app.Items[0].Quality.Should().Be(exp);
     }
 
+    [Fact]
+    public void Backstage_pass_quality_should_stay_at_50_if_above()
+    {
+        //Check if backstage pass quality drops to 0 after the concert has been held
+        //arrange
+        var app = new Program()
+        {
+            Items = new List<Item>() { new BSPass { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 30, Quality = 50 } }
+        };
+
+        var exp = 50;
+
+        //act
+        app.Update();
+
+        //assert
+        app.Items[0].Quality.Should().Be(exp);
+    }
+
+    [Fact]
+    public void Conjured_item_degrades_twice_as_fast_as_normal_item()
+    {
+        //arrange
+        var app = new Program()
+        {
+            Items = new List<Item>() { new ConjuredItem { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 } }
+        };
+
+        var exp = 4;
+
+        //act
+        app.Update();
+
+        //assert
+        app.Items[0].Quality.Should().Be(exp);
+    }
+
+    [Fact]
+    public void Conjured_item_should_not_go_down_in_quality_below_0()
+    {
+        //arrange
+        var app = new Program()
+        {
+            Items = new List<Item>() { new ConjuredItem { Name = "Conjured Mana Cake", SellIn = 1, Quality = 0 } }
+        };
+
+        var expSell = 0;
+        var expQuality = 0;
+
+        //act
+        app.Update();
+
+        //assert
+        app.Items[0].Quality.Should().Be(expQuality);
+        app.Items[0].SellIn.Should().Be(expSell);
+    }
+    [Fact]
+    public void Conjured_item_should_go_double_quality_down_when_sellin_isbelow_0()
+    {
+        //arrange
+        var app = new Program()
+        {
+            Items = new List<Item>() { new ConjuredItem { Name = "Conjured Mana Cake", SellIn = 1, Quality = 10 } }
+        };
+
+        var expSell = -1;
+        var expQuality = 4;
+
+        //act
+        app.Update();
+        app.Update();
+
+        //assert
+        app.Items[0].Quality.Should().Be(expQuality);
+        app.Items[0].SellIn.Should().Be(expSell);
+    }
 
 }
