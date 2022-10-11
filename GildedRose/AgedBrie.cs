@@ -1,6 +1,6 @@
 namespace GildedRose
 {
-    public class Item
+    public class AgedBrie : Item
     {
         public string Name { get; set; }
 
@@ -8,13 +8,13 @@ namespace GildedRose
 
         public int Quality { get; set; }
 
-        public virtual void UpdateQuality() {
-            if (SellIn > 0) {
-                SellIn--;
+        public override void UpdateQuality() {
+            if (this.SellIn > 0) {
+                this.SellIn--;
             } else {
-                Quality--;
+                this.Quality++;
             }
-            Quality--;
+            this.Quality++;
         }
     }
 }

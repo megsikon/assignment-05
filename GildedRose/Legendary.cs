@@ -1,6 +1,6 @@
 namespace GildedRose
 {
-    public class ConjuredItem : Item
+    public class Legendary : Item
     {
         public string Name { get; set; }
 
@@ -9,12 +9,8 @@ namespace GildedRose
         public int Quality { get; set; }
 
         public override void UpdateQuality() {
-            if (SellIn > 0) {
-                SellIn--;
-            } else {
-                Quality = Quality - 2;
-            }
-            Quality = Quality - 2;
+            SellIn = SellIn;
+            Quality = Quality;
         }
     }
 }

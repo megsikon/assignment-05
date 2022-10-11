@@ -8,13 +8,13 @@ public class ProgramTests
         //arrange
         var app = new Program()
         {
-            Items = new List<Item>() { new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 } }
+            Items = new List<Item>() { new ConjuredItem { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 } }
         };
 
         var exp = 4;
 
         //act
-        app.UpdateQuality();
+        app.Update();
 
         //assert
         app.Items[0].Quality.Should().Be(exp);
@@ -27,13 +27,13 @@ public class ProgramTests
         //arrange
         var app = new Program()
         {
-            Items = new List<Item>() { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 3, Quality = 80 } }
+            Items = new List<Item>() { new Legendary { Name = "Sulfuras, Hand of Ragnaros", SellIn = 3, Quality = 80 } }
         };
 
         var exp = 80;
 
         //act
-        app.UpdateQuality();
+        app.Update();
 
         //assert
         app.Items[0].Quality.Should().Be(exp);
@@ -52,9 +52,9 @@ public class ProgramTests
         var exp = 15;
 
         //act
-        app.UpdateQuality();
-        app.UpdateQuality();
-        app.UpdateQuality();
+        app.Update();
+        app.Update();
+        app.Update();
 
         //assert
         app.Items[0].Quality.Should().Be(exp);
@@ -73,9 +73,9 @@ public class ProgramTests
         var exp = 0;
 
         //act
-        app.UpdateQuality();
-        app.UpdateQuality();
-        app.UpdateQuality();
+        app.Update();
+        app.Update();
+        app.Update();
 
         //assert
         app.Items[0].Quality.Should().Be(exp);
@@ -88,14 +88,14 @@ public class ProgramTests
         //arrange
         var app = new Program()
         {
-            Items = new List<Item>() { new Item { Name = "Aged Brie", SellIn = 3, Quality = 0 } }
+            Items = new List<Item>() { new AgedBrie { Name = "Aged Brie", SellIn = 3, Quality = 0 } }
         };
 
         var expSell = 2;
         var expQual = 1;
 
         //act
-        app.UpdateQuality();
+        app.Update();
 
         //assert
         app.Items[0].SellIn.Should().Be(expSell);
@@ -109,14 +109,14 @@ public class ProgramTests
         //arrange
         var app = new Program()
         {
-            Items = new List<Item>() { new Item { Name = "Aged Brie", SellIn = 0, Quality = 2 } }
+            Items = new List<Item>() { new AgedBrie { Name = "Aged Brie", SellIn = 0, Quality = 2 } }
         };
 
         var expSell = -1;
         var expQual = 4;
 
         //act
-        app.UpdateQuality();
+        app.Update();
 
         //assert
         app.Items[0].SellIn.Should().Be(expSell);
@@ -130,14 +130,14 @@ public class ProgramTests
         //arrange
         var app = new Program()
         {
-            Items = new List<Item>() { new Item { Name = "Aged Brie", SellIn = 3, Quality = 50 } }
+            Items = new List<Item>() { new AgedBrie { Name = "Aged Brie", SellIn = 3, Quality = 50 } }
         };
 
         var expSell = 2;
         var expQual = 50;
 
         //act
-        app.UpdateQuality();
+        app.Update();
 
         //assert
         app.Items[0].SellIn.Should().Be(expSell);
@@ -154,8 +154,8 @@ public class ProgramTests
         var app = new Program()
         {
             Items = new List<Item>() {
-                new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 40 },
-                new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 40}
+                new BSPass { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 40 },
+                new BSPass { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 40}
             }
         };
 
@@ -163,7 +163,7 @@ public class ProgramTests
         var exp2 = 43;
 
         //act
-        app.UpdateQuality();
+        app.Update();
 
         //assert
         app.Items[0].Quality.Should().Be(exp1);
@@ -177,13 +177,13 @@ public class ProgramTests
         //arrange
         var app = new Program()
         {
-            Items = new List<Item>() { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 80 } }
+            Items = new List<Item>() { new BSPass { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 80 } }
         };
 
         var exp = 0;
 
         //act
-        app.UpdateQuality();
+        app.Update();
 
         //assert
         app.Items[0].Quality.Should().Be(exp);
